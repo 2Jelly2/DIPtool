@@ -22,6 +22,23 @@ handles.I=0;
 handles.SFtype=1;
 Disabler(handles);
 handles.output = hObject;
+global CN;
+CN.Step1Setting=get(handles.Step1Setting,'title');
+CN.Step1Setting=get(handles.Step1Setting,'title');
+CN.Step2Setting=get(handles.Step2Setting,'title');
+CN.Step3Setting=get(handles.Step3Setting,'title');
+CN.Step4Setting=get(handles.Step4Setting,'title');
+CN.Step5Setting=get(handles.Step5Setting,'title');
+CN.text3=get(handles.text3,'string');
+CN.text4=get(handles.text4,'string');
+CN.text5=get(handles.text5,'string');
+CN.text6=get(handles.text6,'string');
+CN.text9=get(handles.text9,'string');
+CN.MedfiltBT=get(handles.MedfiltBT,'string');
+CN.CstmlzBT=get(handles.CstmlzBT,'string');
+CN.AddN=get(handles.AddN,'string');
+CN.puMenu=get(handles.puMenu,'string');
+CN.imgLoader=get(handles.imgLoader,'string');
 guidata(hObject, handles);
 
 
@@ -42,19 +59,19 @@ function imgLoader_Callback(hObject, ~, handles)
 imgNum=get(handles.imgLoader,'Value');
 switch imgNum
     case 2
-        handles.I=imread('pout.tif');
+        handles.I=imread('./samples/pout.tif');
     case 3
-        handles.I=imread('football.jpg');
+        handles.I=imread('./samples/football.jpg');
     case 4
-        handles.I=imread('cameraman.tif');
+        handles.I=imread('./samples/cameraman.tif');
     case 5
-        handles.I=imread('eight.tif');
+        handles.I=imread('./samples/eight.tif');
     case 6
-        handles.I=imread('rice.png');
+        handles.I=imread('./samples/rice.png');
     case 7
         [file,path]=uigetfile({'*.jpg;*.tif;*.png;*.gif','Image Files';'*.*','All files'});
         PaF=strcat(path,file);
-        if ~isequal(PaF,0)
+        if ~isequal(file,0)
         	handles.I=imread(PaF);
         end
 end
@@ -226,7 +243,7 @@ if handles.SFtype==1
     K=medfilt2(I);
     axes(handles.Out),imshow(K);
 elseif handles.SFtype==2
-    Factor=str2num(get(handles.Factor,'String')); %#ok<ST2NM>
+    Factor=str2num(get(handles.Factor,'String')); 
     m11=str2double(get(handles.m11,'String'));
     m12=str2double(get(handles.m12,'String'));
     m13=str2double(get(handles.m13,'String'));
@@ -487,6 +504,52 @@ if ~isequal(handles.I,0)
     SharpenFix(handles)
 end
 function Sensi_CreateFcn(hObject, ~, ~)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in Language_Select.
+function Language_Select_Callback(hObject, eventdata, handles)
+langNum=get(handles.Language_Select,'Value');
+global CN;
+switch langNum
+    case 1
+        set(handles.Step1Setting,'title',CN.Step1Setting);
+        set(handles.Step2Setting,'title',CN.Step2Setting);
+        set(handles.Step3Setting,'title',CN.Step3Setting);
+        set(handles.Step4Setting,'title',CN.Step4Setting);
+        set(handles.Step5Setting,'title',CN.Step5Setting);
+        set(handles.text3,'string',CN.text3);
+        set(handles.text4,'string',CN.text4);
+        set(handles.text5,'string',CN.text5);
+        set(handles.text6,'string',CN.text6);
+        set(handles.text9,'string',CN.text9);
+        set(handles.MedfiltBT,'string',CN.MedfiltBT);
+        set(handles.CstmlzBT,'string',CN.CstmlzBT);
+        set(handles.AddN,'string',CN.AddN);
+        set(handles.puMenu,'string',CN.puMenu);
+        set(handles.imgLoader,'string',CN.imgLoader);
+    case 2
+        set(handles.Step1Setting,'title','Grayscale Correction Range');
+        set(handles.Step2Setting,'title','Light Correction');
+        set(handles.Step3Setting,'title','Turning Points of 3-Stage Linear Transformation');
+        set(handles.Step4Setting,'title','Smoothing Method');
+        set(handles.Step5Setting,'title','Sharpen Method');
+        set(handles.text3,'string','Block processing size');
+        set(handles.text4,'string','Factor');
+        set(handles.text5,'string','Original Points');
+        set(handles.text6,'string','Expected Points');
+        set(handles.text9,'string','Threshold:');
+        set(handles.MedfiltBT,'string','Median Filtering');
+        set(handles.CstmlzBT,'string','Customized Model');
+        set(handles.AddN,'string','Add Pepper Noise');
+        set(handles.puMenu,'string',{'Select a image enhancement function...';'Histogram Equalization [No options]';'Grayscale Correction';'Uneven Illumination Correction';'3-Stage Linear Transformation Enhancement';'Image Smoothing';'Image Sharpen'})
+        set(handles.imgLoader,'string',{'Select an image...';'pout.tif';'football.jpg';'cameraman.tif';'eight.tif';'rice.png';'Customize…'})
+end
+guidata(hObject, handles);
+
+function Language_Select_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
