@@ -10,4 +10,4 @@ It's a digital image processing tool, with several simple methods including:
 * Image Sharpening
 
 
-You can customize most of the parameters in methods, and add pepper noise for testing.
+You can customize most of the parameters involved in methods, and add pepper noise for testing.
