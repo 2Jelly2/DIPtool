@@ -1,6 +1,8 @@
 # Digital Image Processing Tool
 ![](/samples/DIP.png)
+
 ***
+
 It's a digital image processing tool, with several simple methods including:
 * Histogram Equalization
 * Grayscale Correction
@@ -10,4 +12,8 @@ It's a digital image processing tool, with several simple methods including:
 * Image Sharpening
 
 
-You can customize most of the parameters involved in methods, and add pepper noise for testing.
+Most of the parameters involved in methods are customizable.
+You can use your own image and add pepper noise for testing as well.
+
+
+Please notice that image will be grayscaled before processing.
